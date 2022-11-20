@@ -1,12 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-undef */
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable no-use-before-define */
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';

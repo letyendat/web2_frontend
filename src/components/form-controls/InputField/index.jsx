@@ -1,10 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-undef */
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable no-use-before-define */
-// import { PropTypes } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import { Controller } from 'react-hook-form';

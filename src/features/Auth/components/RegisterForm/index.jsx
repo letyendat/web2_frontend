@@ -1,10 +1,4 @@
-/* eslint-disable import/order */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-use-before-define */
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LockOutlined } from '@mui/icons-material';
 import { Avatar, Button, Typography } from '@mui/material';
