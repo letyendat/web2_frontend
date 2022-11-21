@@ -43,10 +43,10 @@ const useStyles = makeStyles((theme) => ({
 function RegisterForm(props) {
   const classes = useStyles();
   const schema = yup.object().shape({
-    // fullName: yup.string().required('Please enter title').min(5, 'Title is too short'),
-    // email: yup.string().required('Please enter title').min(5, 'Title is too short'),
-    // password: yup.string().required('Please enter title').min(5, 'Title is too short'),
-    // retypePassword: yup.string().required('Please enter title').min(5, 'Title is too short'),
+    fullName: yup.string().required('Please enter title').min(2, 'Title is too short'),
+    email: yup.string().required('Please enter title').min(2, 'Title is too short'),
+    password: yup.string().required('Please enter title').min(2, 'Title is too short'),
+    retypePassword: yup.string().required('Please enter title').min(2, 'Title is too short'),
   });
   const form = useForm({
     defaultValues: {

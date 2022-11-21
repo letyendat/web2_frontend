@@ -17,6 +17,7 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { useState } from 'react';
 import { Controller } from 'react-hook-form';
+import { FormHelperText } from '@mui/material';
 
 
 PasswordField.propTypes = {
@@ -29,6 +30,10 @@ PasswordField.propTypes = {
 function PasswordField(props) {
   const { form, name, label, disabled } = props;
   const [showPassword, setShowPassword] = useState(false);
+
+  const { formState } = form;
+  const { errors } = formState;
+  const hasError = formState.touchedFields[name] && errors[name];
 
   const toggleShowPassword = () => {
     setShowPassword(x => !x);
@@ -46,6 +51,7 @@ function PasswordField(props) {
           formState,
         }) => (
           <OutlinedInput
+            error={!!hasError}
             id={name}
             type={showPassword ? 'text' : 'password'}
             label={label}
@@ -66,6 +72,9 @@ function PasswordField(props) {
         )}
       >
       </Controller>
+      <FormHelperText error id={errors[name]}>
+        {errors[name]?.message}
+      </FormHelperText>
     </FormControl>
   );
 }
