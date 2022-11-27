@@ -10,15 +10,8 @@
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import { Controller } from 'react-hook-form';
-import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    '& p':{
-      color:'red',
-    },
-  },
-}));
+
 
 InputField.propTypes = {
   form: PropTypes.object.isRequired,
@@ -31,11 +24,10 @@ function InputField(props) {
   const {
     form, name, label, disabled,
   } = props;
-  const classes = useStyles();
 
   const { formState } = form;
   const { errors } = formState;
-  const hasError = formState.touchedFields[name] && errors[name];
+  const hasError = errors[name];
 
   return (
     <Controller
@@ -56,7 +48,6 @@ function InputField(props) {
           label={label}
           disabled={disabled}
           id={name}
-          className={classes.textField}
         />
       )}
     />

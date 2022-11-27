@@ -25,7 +25,7 @@ import { setMode } from '../../../../components/Header/headerSlice';
 
 const theme = createTheme();
 
-RegisterForm.propTypes = {
+LoginForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
@@ -34,26 +34,22 @@ const useStyles = makeStyles(() => ({
 
   },
   link: {
-    "margin-top": "15px",
+    "margin-top": "15px", 
     "text-decoration": "none"
   }
 }));
 
-function RegisterForm(props) {
+function LoginForm(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const schema = yup.object().shape({
-    name: yup.string().required('Please enter name.').min(2, 'Name is too short.'),
     email: yup.string().required('Please enter email.').email('Please enter a valid email address.'),
     password: yup.string().required('Please enter password').min(6, 'Password is too short'),
-    retypePassword: yup.string().required('Please enter retype password').oneOf([yup.ref('password')], 'Password does not match'),
   });
   const form = useForm({
     defaultValues: {
-      name: '',
       email: '',
       password: '',
-      retypePassword: '',
     },
     resolver: yupResolver(schema),
   });
@@ -65,7 +61,7 @@ function RegisterForm(props) {
     }
   };
 
-  const handleLoginClick = () => {
+  const handleRegisterClick = () => {
     const action = setMode();
     dispatch(action);
   };
@@ -89,14 +85,12 @@ function RegisterForm(props) {
           </Avatar>
 
           <Typography component="h3" variant="h5">
-            Register An Account
+            Sign In
           </Typography>
 
           <form onSubmit={form.handleSubmit(handleSubmit)}>
-            <InputField name="name" label="Name" form={form} />
             <InputField name="email" label="Email" form={form} />
             <PasswordField name="password" label="Password" form={form} />
-            <PasswordField name="retypePassword" label="Retype Password" form={form} />
 
             {
               isSubmitting &&
@@ -109,11 +103,12 @@ function RegisterForm(props) {
               marginTop: 2,
             }}
               disabled={isSubmitting} type="submit" variant="contained" color="primary" fullWidth>
-              Register
+              Sign In
             </Button>
           </form>
-          <NavLink className={classes.link} to="/login">
-            <Button onClick={handleLoginClick}>Login a account</Button>
+
+          <NavLink className={classes.link} to="/register">
+            <Button onClick={handleRegisterClick}>Register a account</Button>
           </NavLink>
         </Box>
       </Container>
@@ -121,4 +116,4 @@ function RegisterForm(props) {
   );
 }
 
-export default RegisterForm;
+export default LoginForm;

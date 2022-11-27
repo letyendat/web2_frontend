@@ -1,27 +1,86 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-bitwise */
+import { AccountCircle } from '@mui/icons-material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Dialog } from '@mui/material';
+import { Menu, MenuItem } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import DialogActions from '@mui/material/DialogActions';
+import { makeStyles } from '@mui/styles';
+
+import Dialog from '@mui/material/Dialog';
+// import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import Register from '../../features/Auth/components/Register';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../../features/Auth/userSlice';
+import { setMode } from './headerSlice';
+import CreateGroup from '../../features/Group/components/CreateGroup';
+
+const useStyles = makeStyles(() => ({
+  root: {
+
+  },
+  link: {
+    "text-decoration": "none",
+    "color": "white",
+    "backgroundColor": "black"
+  }
+}));
 
 export default function Header() {
-  const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector(state => state.user.current)
+  const isLoginIn = !!loggedInUser._id;
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const mode = useSelector(state => state.header)
+
+  const [anchorElAccount, setAnchorElAccount] = useState(null);
+  const [anchorElFeature, setAnchorElFeature] = useState(null);
+  const [openDialogCreateGroup, setOpenDialogCreateGroup] = useState(false);
+
+  const handleAccountClick = (e) => {
+    setAnchorElAccount(e.currentTarget);
+  };
+  const handleCloseAccountMenu = () => {
+    setAnchorElAccount(null);
+  };
+  const handleLoggoutClick = () => {
+    const action = logout();
+    dispatch(action);
+    handleCloseAccountMenu();
   };
 
-  const handleClose = (event, reason) => {
-    if ((reason && reason === 'backdropClick') | (reason && reason === 'escapeKeyDown')) return;
-    setOpen(false);
+  const handleFeatureClick = (e) => {
+    setAnchorElFeature(e.currentTarget);
+  };
+  const handleCloseFeatureMenu = () => {
+    setAnchorElFeature(null);
+  };
+
+  const handleRegisterClick = () => {
+    const action = setMode();
+    dispatch(action);
+  };
+  const handleLoginClick = () => {
+    const action = setMode();
+    dispatch(action);
+  };
+
+  const handleClickOpenDialogCreateGroup = () => {
+    setOpenDialogCreateGroup(true);
+    handleCloseFeatureMenu()
+  };
+
+  const handleCloseDialogCreateGroup = () => {
+    setOpenDialogCreateGroup(false);
   };
 
   return (
@@ -40,21 +99,78 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Class Room
           </Typography>
-          <Button color="inherit" onClick={handleClickOpen}>Register</Button>
+
+          {!isLoginIn && (
+            (!mode && (
+              <Link className={classes.link} to="/login">
+                <Button color="inherit" onClick={handleLoginClick}>
+                  Login
+                </Button>
+              </Link>
+            )) || (mode && (
+              <Link className={classes.link} to="/register">
+                <Button color="inherit" onClick={handleRegisterClick}>
+                  Register
+                </Button>
+              </Link>
+            )
+            ))}
+
+          {isLoginIn && (
+            <div>
+              <IconButton color="inherit" onClick={handleFeatureClick}>
+                <AddCircleIcon fontSize='large' />
+              </IconButton>
+              <IconButton color="inherit" onClick={handleAccountClick}>
+                <AccountCircle fontSize='large' />
+              </IconButton>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
+
+      <Menu
+        id="account-menu"
+        anchorEl={anchorElAccount}
+        open={Boolean(anchorElAccount)}
+        onClose={handleCloseAccountMenu}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleCloseAccountMenu}>Profile</MenuItem>
+        <MenuItem onClick={handleCloseAccountMenu}>My account</MenuItem>
+        <MenuItem onClick={handleLoggoutClick}>Logout</MenuItem>
+      </Menu>
+
+      <Menu
+        id="feature-menu"
+        anchorEl={anchorElFeature}
+        open={Boolean(anchorElFeature)}
+        onClose={handleCloseFeatureMenu}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClickOpenDialogCreateGroup}>Create a group</MenuItem>
+        <MenuItem onClick={handleCloseFeatureMenu}>Join to a group</MenuItem>
+      </Menu>
+
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open={openDialogCreateGroup}
+        onClose={handleCloseDialogCreateGroup}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogContent>
-          <Register/>
+          <CreateGroup onClose={handleCloseDialogCreateGroup}/>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-        </DialogActions>
+        {/* <DialogActions>
+          <Button onClick={handleCloseDialogCreateGroup}>Create</Button>
+          <Button onClick={handleCloseDialogCreateGroup} autoFocus>
+            Cancel
+          </Button>
+        </DialogActions> */}
       </Dialog>
     </Box>
   );

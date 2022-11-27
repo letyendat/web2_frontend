@@ -8,34 +8,34 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import userApi from '../../../../api/userApi';
-import RegisterForm from '../RegisterForm';
+// import { register } from '../../userSlice';
+import UpdateUserProfileForm from '../UpdateUserProfileForm';
 
 
-function Register(props) {
-
+function UpdateUserProfile(props) {
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = async (values) => {
         try {
-            const data = await userApi.register(values);
+            const resp = await userApi.update(values);
 
-            enqueueSnackbar("Register successfully!!", { variant: "success" });
+            enqueueSnackbar("Update successfully!!", { variant: "success" });
         } catch (error) {
             enqueueSnackbar(error.message, { variant: "error" });
         }
     }
 
     return (
-        <RegisterForm onSubmit={handleSubmit} />
+        <UpdateUserProfileForm onSubmit={handleSubmit} />
     );
 }
 
-Register.propTypes = {
+UpdateUserProfile.propTypes = {
 
 };
 
-Register.defaultProps = {
+UpdateUserProfile.defaultProps = {
 
 };
 
-export default Register;
+export default UpdateUserProfile;

@@ -33,7 +33,7 @@ function PasswordField(props) {
 
   const { formState } = form;
   const { errors } = formState;
-  const hasError = formState.touchedFields[name] && errors[name];
+  const hasError = errors[name];
 
   const toggleShowPassword = () => {
     setShowPassword(x => !x);
@@ -72,7 +72,7 @@ function PasswordField(props) {
         )}
       >
       </Controller>
-      <FormHelperText error id={errors[name]}>
+      <FormHelperText error={!!hasError} id={errors[name]}>
         {errors[name]?.message}
       </FormHelperText>
     </FormControl>
