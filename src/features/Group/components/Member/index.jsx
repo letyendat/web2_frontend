@@ -21,11 +21,9 @@ function Member({ member }) {
     const classes = useStyles();
 
     return (
-        // <Box padding={2}>
-            <Box padding={2}>
-                <Typography sx={{ color: 'black', fontFamily: 'Monospace' }} variant="h5">{member.user_id.name} : {member.user_id.email}</Typography>
-            </Box>
-        // </Box>
+        <Box padding={1} marginTop={1} sx={{ border: 1 , borderRadius: 2, backgroundColor: '#afa98e'}}  >
+            <Typography sx={{ color: 'black', fontFamily: 'Monospace' }} variant="h5">{member.user_id.name} : {member.user_id.email}</Typography>
+        </Box>
     );
 }
 

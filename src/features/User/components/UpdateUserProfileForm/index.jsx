@@ -16,7 +16,7 @@ import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as yup from 'yup';
 import InputField from '../../../../components/form-controls/InputField';
@@ -41,19 +41,21 @@ const useStyles = makeStyles(() => ({
 
 function UpdateUserProfileForm(props) {
     const classes = useStyles();
+    const loggedInUser = useSelector(state => state.user.current)
+
     const dispatch = useDispatch();
     const schema = yup.object().shape({
         email: yup.string().required('Please enter email.').email('Please enter a valid email address.'),
         // password: yup.string().required('Please enter password').min(6, 'Password is too short'),
-        fullName: yup.string().required('Please enter fullname').min(6, 'Fullname is too short'),
-        birthdate: yup.string().required('Please enter birthdate').min(6, 'Birthdate is too short'),
+        name: yup.string().required('Please enter fullname').min(6, 'Fullname is too short'),
+        // birthdate: yup.string().required('Please enter birthdate').min(6, 'Birthdate is too short'),
     });
     const form = useForm({
         defaultValues: {
-            email: '',
+            email: loggedInUser.email,
             //   password: '',
-            fullName: '',
-            birthdate: ''
+            name: loggedInUser.name,
+            // birthdate: ''
         },
         resolver: yupResolver(schema),
     });
@@ -88,10 +90,8 @@ function UpdateUserProfileForm(props) {
                     </Typography>
 
                     <form onSubmit={form.handleSubmit(handleSubmit)}>
-                        <InputField name="email" label="Email" form={form} />
-                        <InputField name="fullName" label="Fullname" form={form} />
-                        <InputField name="birthdate" label="Birthdate" form={form} />
-
+                        <InputField disabled name="email" label="Email" form={form} />
+                        <InputField name="name" label="Name" form={form} />
 
                         {
                             isSubmitting &&

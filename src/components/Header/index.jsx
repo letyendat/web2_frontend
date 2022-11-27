@@ -30,7 +30,10 @@ const useStyles = makeStyles(() => ({
   link: {
     "text-decoration": "none",
     "color": "white",
-    "backgroundColor": "black"
+  },
+  link2: {
+    "text-decoration": "none",
+    "color": "black"
   }
 }));
 
@@ -51,6 +54,9 @@ export default function Header() {
   };
   const handleCloseAccountMenu = () => {
     setAnchorElAccount(null);
+  };
+  const handleProfileClick = () => {
+    handleCloseAccountMenu();
   };
   const handleLoggoutClick = () => {
     const action = logout();
@@ -86,7 +92,7 @@ export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{ backgroundColor: '#afa98e' }}>
           <IconButton
             size="large"
             edge="start"
@@ -96,8 +102,11 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Class Room
+            <Link className={classes.link} to="/">
+              Class Room
+            </Link>
           </Typography>
 
           {!isLoginIn && (
@@ -138,8 +147,10 @@ export default function Header() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleCloseAccountMenu}>Profile</MenuItem>
-        <MenuItem onClick={handleCloseAccountMenu}>My account</MenuItem>
+        <Link className={classes.link2} to="/profile">
+          <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+        </Link>
+        {/* <MenuItem onClick={handleCloseAccountMenu}>My account</MenuItem> */}
         <MenuItem onClick={handleLoggoutClick}>Logout</MenuItem>
       </Menu>
 
@@ -163,7 +174,7 @@ export default function Header() {
         aria-describedby="alert-dialog-description"
       >
         <DialogContent>
-          <CreateGroup onClose={handleCloseDialogCreateGroup}/>
+          <CreateGroup onClose={handleCloseDialogCreateGroup} />
         </DialogContent>
         {/* <DialogActions>
           <Button onClick={handleCloseDialogCreateGroup}>Create</Button>

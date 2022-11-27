@@ -48,7 +48,17 @@ const groupApi = {
                 group_id: groupId
             }
         });
-    }
+    },
+
+    async sendInviteGroupLink(data) {
+        const url = "/group/send_link";
+        return axiosClient.get(url, {
+            params: {
+                group_id: data.group_id,
+                email: data.email
+            }
+        });
+    },
 };
 
 

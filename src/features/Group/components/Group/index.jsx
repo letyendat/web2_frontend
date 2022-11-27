@@ -33,8 +33,8 @@ function Group({ group }) {
         <Link to={group.group_id._id} className={classes.link}>
             <Box>
                 <Box padding={1} className={classes.boxOne} sx={{ border: 0.5, borderBottom: 0, backgroundColor: '#afa98e' }}>
-                    <Typography sx={{ color: 'white', fontFamily: 'Monospace' }} variant="h5">{group.group_id.name}</Typography>
-                    <Typography sx={{ color: 'white', fontFamily: 'Monospace' }}>{group.user_id.name}</Typography>
+                    <Typography noWrap sx={{ color: 'white', fontFamily: 'Monospace' }} variant="h5">{group.group_id.name}</Typography>
+                    <Typography noWrap sx={{ color: 'white', fontFamily: 'Monospace' }}>{group.user_id.name}</Typography>
                 </Box>
                 <Box padding={1} className={classes.boxTwo} sx={{ border: 0.5 }}>
                     <Box>

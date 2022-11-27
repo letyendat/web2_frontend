@@ -11,13 +11,11 @@ import Member from '../Member';
 function GroupMemberList({ data }) {
     return (
         <Box>
-            {/* <Grid container spacing={2}> */}
-                {data.map((member) => (
-                    <Grid item key={member.user_id._id} xs={12} sm={6} md={4} lg={2}>
-                        <Member member={member} />
-                    </Grid>
-                ))}
-            {/* </Grid> */}
+            {data.map((member) => (
+                <div key={member.user_id._id}>
+                    <Member member={member} />
+                </div>
+            ))}
         </Box>
     );
 }

@@ -34,7 +34,7 @@ function InputField(props) {
       name={name}
       control={form.control}
       render={({
-        field: { onChange, value },
+        field: { onChange, value},
         fieldState: { invalid, isTouched, isDirty, error },
         formState,
       }) => (

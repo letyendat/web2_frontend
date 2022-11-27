@@ -20,13 +20,19 @@ const userApi = {
     },
 
     async update(data) {
-        const url = "/user/local/update";
-        return axiosClient.post(url, data);
+        const url = "/user";
+        return axiosClient.put(url, {
+            name: data.name
+        });
     },
 
     async get(userId) {
-        const url = `/user/local/get/${userId}`;
-        return axiosClient.get(url);
+        const url = `/user/getone`;
+        return axiosClient.get(url, {
+            params: {
+                _id: userId
+            }
+        });
     },
 };
 
