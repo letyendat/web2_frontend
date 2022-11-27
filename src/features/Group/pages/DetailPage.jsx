@@ -59,7 +59,7 @@ function DetailPage(props) {
         try {
             const response = await groupApi.getInviteGroupLink(groupId);
 
-            const inviteLinkFE = `http://localhost:3000/invite/${groupId}`
+            const inviteLinkFE = `https://web2-frontend-l6ij.vercel.app/invite/${groupId}`
             if (response.data) {
                 setInviteLink(inviteLinkFE);
                 handleClickOpenDialogCreateInviteLink();
