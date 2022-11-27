@@ -21,7 +21,7 @@ const userApi = {
 
     async update(data) {
         const url = "/user";
-        return axiosClient.put(url, {
+        return axiosClient.post(url, {
             name: data.name
         });
     },

@@ -35,7 +35,10 @@ const counterSlice = createSlice({
             localStorage.removeItem(StorageKeys.USER);
 
             state.current = {};
-        }
+        },
+        update(state, action) {
+            state.current = action.payload;
+        },
     },
     extraReducers: {
         // [register.fulfilled]: (state, action) => {
@@ -49,5 +52,5 @@ const counterSlice = createSlice({
 });
 
 const { actions, reducer } = counterSlice;
-export const { logout } = actions;
+export const { logout, update } = actions;
 export default reducer;

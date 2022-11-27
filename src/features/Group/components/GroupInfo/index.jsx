@@ -64,7 +64,7 @@ function GroupInfo({ groupInfo }) {
         <Box>
             <Box padding={1} className={classes.boxOne} sx={{ border: 1, backgroundColor: '#afa98e' }}>
                 <Typography sx={{ color: 'white', fontFamily: 'Monospace' }} variant="h5">{groupName}</Typography>
-                <Typography sx={{ color: 'white', fontFamily: 'Monospace' }}>{onwerName}</Typography>
+                <Typography sx={{ color: 'white', fontFamily: 'Monospace' }}>Owner Group: {onwerName}</Typography>
             </Box>
             <Box className={classes.boxTwo} marginTop={3}>
                 <GroupMemberList data={memberList} />

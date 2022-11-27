@@ -22,7 +22,7 @@ function Member({ member }) {
 
     return (
         <Box padding={1} marginTop={1} sx={{ border: 1 , borderRadius: 2, backgroundColor: '#afa98e'}}  >
-            <Typography sx={{ color: 'black', fontFamily: 'Monospace' }} variant="h5">{member.user_id.name} : {member.user_id.email}</Typography>
+            <Typography sx={{ color: 'black', fontFamily: 'Monospace' }} variant="h5">{member.user_id.name} : {member.user_id.email} : {member.role_id.name}</Typography>
         </Box>
     );
 }

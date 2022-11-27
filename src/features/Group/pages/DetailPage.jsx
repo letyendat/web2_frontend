@@ -113,6 +113,7 @@ function DetailPage(props) {
         (async () => {
             try {
                 const response = await groupApi.getGroupDetail(groupId);
+                console.log(response)
                 setGroup(response);
             } catch (error) {
                 console.log("failed");
