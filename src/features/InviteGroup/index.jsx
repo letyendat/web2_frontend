@@ -24,7 +24,7 @@ function InviteGroup(props) {
 
     return (
         <div>
-            {setInvite ?
+            {invite ?
                 <Routes>
                     <Route path="" exact element={<DetailPage />} />
                 </Routes>
