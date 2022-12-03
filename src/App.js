@@ -14,6 +14,8 @@ import { useSelector } from 'react-redux';
 import UpdateUserProfile from './features/User/components/UpdateUserProfile';
 import GroupFeature from './features/Group';
 import InviteGroup from './features/InviteGroup';
+import PresentationList from './features/Presentation/components/PresentationList';
+import PresentationFeature from './features/Presentation';
 
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
+          <Route path="/present/*" element={<PresentationFeature/>} /> 
           <Route path="/groups/*" element={<GroupFeature/>} /> 
           <Route path="/invite/:groupId" element={<InviteGroup/>} /> 
           <Route path="/" element={<Navigate to="/groups"/>} /> 
