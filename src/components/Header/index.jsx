@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-bitwise */
 import { AccountCircle } from '@mui/icons-material';
@@ -16,7 +18,7 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../features/Auth/userSlice';
@@ -108,6 +110,11 @@ export default function Header() {
               Class Room
             </Link>
           </Typography>
+          <Link className={classes.link} to="/presentation">
+            <Button color="inherit">
+              Presentation
+            </Button>
+          </Link>
 
           {!isLoginIn && (
             (!mode && (

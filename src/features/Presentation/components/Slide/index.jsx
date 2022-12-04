@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-unresolved */
 import React, { useState } from 'react';
@@ -16,17 +17,20 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-function Slide({variant, marginTop}) {
+function Slide({ variant, marginTop, labels, datas, question, code }) {
     return (
         <Box>
             <Box marginTop={marginTop}>
                 <Typography align="center" variant={variant}>
-                    Ban Muon Co Nguoi Yeu Khong
+                    {code}
+                </Typography>
+                <Typography align="center" variant={variant}>
+                    {question}
                 </Typography>
             </Box>
             <Box marginTop={marginTop}>
                 <Container>
-                    <MultipleChoice />
+                    <MultipleChoice labels={labels} datas={datas} />
                 </Container>
             </Box>
         </Box>
@@ -36,9 +40,17 @@ function Slide({variant, marginTop}) {
 Slide.propTypes = {
     variant: PropTypes.string.isRequired,
     marginTop: PropTypes.number.isRequired,
+    labels: PropTypes.array,
+    datas: PropTypes.array,
+    question: PropTypes.string,
+    code: PropTypes.number,
 };
 
 Slide.defaultProps = {
+    labels: ["Option 1", "Option 2", "Option 3", "Option 4"],
+    datas: [0, 0, 0, 0],
+    question: "Any question",
+    code: 0
 }
 
 export default Slide;

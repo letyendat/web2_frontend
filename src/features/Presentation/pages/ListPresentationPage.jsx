@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
 import * as yup from 'yup';
@@ -12,7 +12,6 @@ import { Box, Button, Container, CircularProgress, DialogContent, DialogActions,
 import PresentationList from '../components/PresentationList';
 import InputField from '../../../components/form-controls/InputField';
 import presentationApi from '../../../api/presentationApi';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles(() => ({
     root: {},
@@ -52,23 +51,77 @@ function ListPresentationPage() {
     const handleSendInviteClick = async () => {
         handleClickOpenDialogCreatePresentation();
     };
+
+    const [presentation, setPresentation] = useState({});
     const handleSubmitCreatePresentation = async (values) => {
         try {
             const response = await presentationApi.createPresentation(values);
 
             if (response.status === true) {
-                enqueueSnackbar("Send mail successfully!!", {
+                enqueueSnackbar("Send presentation successfully!!", {
                     variant: "success",
                     autoHideDuration: 1000
                 });
+                setPresentation(response)
             } else {
-                enqueueSnackbar("Send mail fail", {
+                enqueueSnackbar("Send presentation fail", {
                     variant: "error",
                     autoHideDuration: 1000
                 });
             }
         } catch (error) {
-            enqueueSnackbar("Send mail fail", {
+            enqueueSnackbar("Send presentation fail", {
+                variant: "error",
+                autoHideDuration: 1000
+            });
+        }
+    };
+
+
+    const schemaDelete = yup.object().shape({
+        id: yup.string().required('Please enter id.')
+    });
+    const formDelete = useForm({
+        defaultValues: {
+            id: '',
+        },
+        resolver: yupResolver(schemaDelete),
+    });
+    const { isSubmittingDelete } = form.formState
+    const [openDialogDeletePresentation, setOpenDialogDeletePresentation] = useState(false);
+
+    const handleCloseDialogDeletePresentation = () => {
+        setOpenDialogDeletePresentation(false);
+    };
+    const handleClickOpenDialogDeletePresentation = () => {
+        setOpenDialogDeletePresentation(true);
+    };
+    const handleDeletePresentationClick = async () => {
+        handleClickOpenDialogDeletePresentation();
+    };
+
+    const handleSubmitDeletePresentation = async (values) => {
+        try {
+            console.log(values)
+            const response = await presentationApi.delete({
+                id: values.id
+            });
+
+            if (response.status === true) {
+                enqueueSnackbar("Delete presentation successfully!!", {
+                    variant: "success",
+                    autoHideDuration: 1000
+                });
+                setPresentation({})
+
+            } else {
+                enqueueSnackbar("Delete presentation fail", {
+                    variant: "error",
+                    autoHideDuration: 1000
+                });
+            }
+        } catch (error) {
+            enqueueSnackbar("Delete presentation fail", {
                 variant: "error",
                 autoHideDuration: 1000
             });
@@ -89,7 +142,7 @@ function ListPresentationPage() {
 
             setLoadingPresentationList(false);
         })();
-    }, []);
+    }, [presentation]);
 
     // setLoading(false);
     return (
@@ -97,6 +150,9 @@ function ListPresentationPage() {
             <Container>
                 <Button onClick={handleSendInviteClick} sx={{ backgroundColor: '#afa98e', marginBottom: '20px' }}>
                     Create Presentation
+                </Button>
+                <Button onClick={handleDeletePresentationClick} sx={{ marginLeft: "20px", backgroundColor: '#afa98e', marginBottom: '20px' }}>
+                    Delete Presentation
                 </Button>
                 <Grid container spacing={1}>
                     <Grid item className={classes.right}>
@@ -138,7 +194,36 @@ function ListPresentationPage() {
                 </DialogActions>
             </Dialog>
 
+            <Dialog
+                open={openDialogDeletePresentation}
+                onClose={handleCloseDialogDeletePresentation}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogContent>
+                    <form onSubmit={formDelete.handleSubmit(handleSubmitDeletePresentation)}>
+                        <InputField name="id" label="ID" form={formDelete} />
+                        {
+                            isSubmittingDelete &&
+                            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                <CircularProgress />
+                            </Box>
+                        }
 
+                        <Button sx={{
+                            marginTop: 2,
+                        }}
+                            disabled={isSubmittingDelete} type="submit" variant="contained" color="primary" fullWidth>
+                            Delete
+                        </Button>
+                    </form>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseDialogDeletePresentation} autoFocus>
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 }

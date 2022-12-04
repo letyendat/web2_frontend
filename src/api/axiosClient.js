@@ -4,11 +4,11 @@
 /* eslint-disable no-param-reassign */
 import axios from "axios";
 
-const a = "https://midtermprj12032000hanoi.herokuapp.com";
-const b = "http://localhost:5000";
+const a = "http://13.114.143.190:5001";
+const b = "http://localhost:5001";
 
 const axiosClient = axios.create({
-  baseURL: "http://13.114.143.190:5001",
+  baseURL: a,
   headers: {
     // "Access-Control-Allow-Origin": "*",
     // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",

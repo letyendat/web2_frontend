@@ -14,12 +14,28 @@ const presentationApi = {
         return axiosClient.get(url);
     },
 
+    async get(data) {
+        const url = "/presentation/getone";
+        return axiosClient.get(url, {
+            params: {
+                _id: data.id
+            }
+        });
+    },
+
     async getPresentationDetail(id) {
         const url = "/presentation/getone";
         return axiosClient.get(url, {
             params: {
                 _id: id
             }
+        });
+    },
+
+    async delete(data) {
+        const url = "/presentation/delete";
+        return axiosClient.post(url, {
+            _id: data.id,
         });
     },
 };
