@@ -8,7 +8,7 @@ const a = "http://13.114.143.190:5001";
 const b = "http://localhost:5001";
 
 const axiosClient = axios.create({
-  baseURL: a,
+  baseURL: "https://web2-backend-8wpp.onrender.com",
   headers: {
     // "Access-Control-Allow-Origin": "*",
     // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",

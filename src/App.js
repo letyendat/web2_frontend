@@ -20,7 +20,8 @@ import FormPlayerMultipleChoice from './features/Presentation/components/FormPla
 import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 
-
+const a = "http://13.114.143.190:5001";
+const b = "http://localhost:5001";
 
 function App() {
   const loggedInUser = useSelector(state => state.user.current)
@@ -28,7 +29,7 @@ function App() {
 
   const [socket, setSocket] = useState(null);
   useEffect(() => {
-      const newSocket = io(`http://13.114.143.190:5001`);
+      const newSocket = io("https://web2-backend-8wpp.onrender.com");
       setSocket(newSocket);
       return () => newSocket.close();
   }, [setSocket]);
