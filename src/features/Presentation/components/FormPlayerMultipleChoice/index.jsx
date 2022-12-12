@@ -67,7 +67,7 @@ export default function FormPlayerMultipleChoice({ socket }) {
       
 
       console.log(event.target.value);
-      socket.emit('message', { id: slideList[indexSlides]?._id, index: event.target.value })
+      socket.emit('multiChoice', { id: slideList[indexSlides]?._id, index: event.target.value })
 
       if (indexSlides < slideList.length - 1) {
         setIndexSlides((prev) => {

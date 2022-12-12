@@ -19,9 +19,10 @@ import PresentationFeature from './features/Presentation';
 import FormPlayerMultipleChoice from './features/Presentation/components/FormPlayerMultipleChoice';
 import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
+import ChatDialog from './features/Presentation/components/Chat';
 
-const a = "http://13.114.143.190:5001";
-const b = "http://localhost:5001";
+const a = "https://web2-backend-8wpp.onrender.com";
+const b = "http://localhost:5000";
 
 function App() {
   const loggedInUser = useSelector(state => state.user.current)
@@ -29,7 +30,7 @@ function App() {
 
   const [socket, setSocket] = useState(null);
   useEffect(() => {
-      const newSocket = io("https://web2-backend-8wpp.onrender.com");
+      const newSocket = io(b);
       setSocket(newSocket);
       return () => newSocket.close();
   }, [setSocket]);
@@ -39,6 +40,7 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
+          <Route path="/chat" element={<ChatDialog socket={socket}/>} />
           <Route path="/player" element={<FormPlayerMultipleChoice socket={socket}/>} />
           <Route path="/presentation/*" element={<PresentationFeature socket={socket}/>} />
           <Route path="/groups/*" element={<GroupFeature />} />

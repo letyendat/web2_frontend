@@ -4,11 +4,11 @@
 /* eslint-disable no-param-reassign */
 import axios from "axios";
 
-const a = "http://13.114.143.190:5001";
-const b = "http://localhost:5001";
+const a = "https://web2-backend-8wpp.onrender.com";
+const b = "http://localhost:5000";
 
 const axiosClient = axios.create({
-  baseURL: "https://web2-backend-8wpp.onrender.com",
+  baseURL: b,
   headers: {
     // "Access-Control-Allow-Origin": "*",
     // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",

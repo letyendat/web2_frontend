@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
@@ -7,10 +8,14 @@ import { Grid, Box, Paper, Button } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import socketIOClient from 'socket.io-client';
+import { useSelector } from 'react-redux';
 
+import Stack from '@mui/material/Stack';
+import Badge from '@mui/material/Badge';
 import Slide from '../Slide';
 import slideApi from '../../../../api/slideApi';
 import presentationApi from '../../../../api/presentationApi';
+import Chat from '../Chat';
 
 
 const useStyles = makeStyles(() => ({
@@ -33,6 +38,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 function PresentationInfo({ socket }) {
+    const loggedInUser = useSelector(state => state.user.current)
+    const idloggedUser = loggedInUser?._id;
     const { enqueueSnackbar } = useSnackbar();
 
     const classes = useStyles();
@@ -107,9 +114,11 @@ function PresentationInfo({ socket }) {
         setSlideChoice(item)
     };
 
+    const [countMessage, setCountMessage] = useState(0);
+
+
     useEffect(() => {
-        const messageListener = async (value) => {
-            // setSlide(value);
+        const multiChoiceListener = async (value) => {
             try {
                 const response = await slideApi.getSlideDetail(value.id);
                 if (response.status === true) {
@@ -122,22 +131,18 @@ function PresentationInfo({ socket }) {
             }
         };
 
-        // const deleteMessageListener = (messageID) => {
-        //     setMessage((prevMessages) => {
-        //         const newMessages = { ...prevMessages };
-        //         delete newMessages[messageID];
-        //         return newMessages;
-        //     });
-        // };
+        socket?.on('multiChoice', multiChoiceListener);
 
+        const messageListener = (message) => {
+            
+            if (message.owner_id?._id !== idloggedUser) {
+                setCountMessage((count) => {
+                    const newCount = count + 1;
+                    return newCount;
+                });
+            }
+        };
         socket?.on('message', messageListener);
-        // socket.on('deleteMessage', deleteMessageListener);
-        // socket.emit('getMessages');
-
-        // return () => {
-        //     // socket.off('message', messageListener);
-        //     // socket.off('deleteMessage', deleteMessageListener);
-        // };
     }, [socket]);
 
     const handleOnClickDeleteSlide = async () => {
@@ -168,12 +173,29 @@ function PresentationInfo({ socket }) {
             });
         }
     };
+
+    const [openDialogChat, setOpenDialogChat] = useState(false);
+    const handleOnClickOpenDialogChat = () => {
+        setCountMessage(0)
+        setOpenDialogChat(true)
+    }
+
+    const handleCloseDialogChat = () => {
+        setOpenDialogChat(false)
+    }
+
     return (
         <Box>
-            <Button onClick={handleOnClickCreateMultipleChoice} sx={{ backgroundColor: '#afa98e' }}>
+            <Badge color="secondary" badgeContent={countMessage}>
+                <Button onClick={handleOnClickOpenDialogChat} sx={{ backgroundColor: '#afa98e' }}>
+                    Open Chat
+                </Button>
+            </Badge>
+
+            <Button onClick={handleOnClickCreateMultipleChoice} sx={{ marginLeft: '20px', backgroundColor: '#afa98e' }}>
                 Create Multiple Choice
             </Button>
-            <Button onClick={handleOnClickDeleteSlide} sx={{ marginLeft: '20px',backgroundColor: '#afa98e' }}>
+            <Button onClick={handleOnClickDeleteSlide} sx={{ marginLeft: '20px', backgroundColor: '#afa98e' }}>
                 Delete Slide
             </Button>
             <Button sx={{ backgroundColor: '#afa98e', marginLeft: 190 }}>
@@ -200,14 +222,16 @@ function PresentationInfo({ socket }) {
 
                 <Grid className={classes.right} item>
                     <Paper elevation={1}>
-                        {   slideChoice ? 
+                        {slideChoice ?
                             <Slide variant="h3" marginTop={8} labels={slideChoice.labels} datas={slideChoice.datas} question={slideChoice.question} code={presentation.data?.code} />
                             :
-                            <div/>
+                            <div />
                         }
                     </Paper>
                 </Grid>
             </Grid>
+
+            <Chat open={openDialogChat} handleClose={handleCloseDialogChat} socket={socket} presentationId={presentationId} />
         </Box>
     );
 }
