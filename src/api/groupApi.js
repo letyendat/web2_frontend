@@ -9,9 +9,37 @@ const groupApi = {
         });
     },
 
+    async updateRole(data) {
+        const url = "/group/update_role";
+        return axiosClient.put(url, {
+            group_id: data.groupId,
+            user_id_update: data.userIdUpdate,
+            role: data.role,
+        });
+    },
+
     async getAllGroups() {
         const url = "/group";
         return axiosClient.get(url);
+    },
+
+    async deleteMember(data) {
+        const url = "/group/delete_member";
+        return axiosClient.delete(url, {
+            data: {
+                group_id: data.groupId,
+                user_id_delete: data.userIdDelete
+            }
+        });
+    },
+
+    async deleteGroup(data) {
+        const url = "/group/delete_group";
+        return axiosClient.delete(url, {
+            data: {
+                group_id: data.groupId,
+            }
+        });
     },
 
     async getGroupDetail(id) {

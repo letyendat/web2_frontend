@@ -18,5 +18,12 @@
     "plugins": [
         "react"
     ],
-    "rules": {}
+    "rules": {
+        "arrow-body-style": [
+            "error",
+            "as-needed"
+        ],
+        "no-nested-ternary": "off",
+        "no-underscore-dangle": "off"
+    }
 }

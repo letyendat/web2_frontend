@@ -23,6 +23,24 @@ const presentationApi = {
         });
     },
 
+    async getSlidesOfPresentation(data) {
+        const url = "/presentation/get_slides_of_presentation";
+        return axiosClient.get(url, {
+            params: {
+                _id: data.id
+            }
+        });
+    },
+
+    async getSlidesByCode(data) {
+        const url = "/presentation/get_slides_by_code";
+        return axiosClient.get(url, {
+            params: {
+                code: data.code
+            }
+        });
+    },
+
     async getPresentationDetail(id) {
         const url = "/presentation/getone";
         return axiosClient.get(url, {

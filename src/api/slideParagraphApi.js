@@ -1,33 +1,24 @@
 import axiosClient from "./axiosClient";
 
-const slideApi = {
-    async createSlide(data) {
-        const url = "/slide/create";
+const slideParagraphApi = {
+    async createSlideParagraph(data) {
+        const url = "/slide_paragraph/create";
         return axiosClient.post(url, {
             presentation_id: data.presentationId
         });
     },
 
-    async updateOptionSlide(data) {
-        const url = "/slide/update_option";
+    async updateSlideParagraph(data) {
+        const url = "/slide_paragraph/update";
         return axiosClient.post(url, {
             id: data.id,
-            index: data.index
+            heading: data.heading,
+            paragraph: data.paragraph,
         });
     },
 
-    async updateSlide(data) {
-        const url = "/slide/update";
-        return axiosClient.post(url, {
-            id: data.id,
-            question: data.question,
-            labels: data.labels,
-            datas: data.datas,
-        });
-    },
-
-    async getAllSlides(data) {
-        const url = "/slide";
+    async getAllSlideParagraphs(data) {
+        const url = "/slide_paragraph";
         return axiosClient.get(url, {
             params: {
                 presentation_id: data.presentationId
@@ -35,8 +26,8 @@ const slideApi = {
         });
     },
 
-    async getSlidesByCode(data) {
-        const url = "/slide/get_slide_by_code";
+    async getSlideParagraphsByCode(data) {
+        const url = "/slide_paragraph/get_slide_by_code";
         return axiosClient.get(url, {
             params: {
                 code: data.code
@@ -44,8 +35,8 @@ const slideApi = {
         });
     },
 
-    async getSlideDetail(id) {
-        const url = "/slide/getone";
+    async getSlideParagraphDetail(id) {
+        const url = "/slide_paragraph/getone";
         return axiosClient.get(url, {
             params: {
                 _id: id
@@ -54,7 +45,7 @@ const slideApi = {
     },
 
     async delete(data) {
-        const url = "/slide/delete";
+        const url = "/slide_paragraph/delete";
         return axiosClient.post(url, {
             _id: data.id,
         });
@@ -63,4 +54,4 @@ const slideApi = {
 };
 
 
-export default slideApi;
+export default slideParagraphApi;

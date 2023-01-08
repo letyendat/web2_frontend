@@ -1,33 +1,23 @@
 import axiosClient from "./axiosClient";
 
-const slideApi = {
-    async createSlide(data) {
-        const url = "/slide/create";
+const slideHeadingApi = {
+    async createSlideHeading(data) {
+        const url = "/slide_heading/create";
         return axiosClient.post(url, {
             presentation_id: data.presentationId
         });
     },
 
-    async updateOptionSlide(data) {
-        const url = "/slide/update_option";
+    async updateSlideHeading(data) {
+        const url = "/slide_heading/update";
         return axiosClient.post(url, {
             id: data.id,
-            index: data.index
+            heading: data.heading,
         });
     },
 
-    async updateSlide(data) {
-        const url = "/slide/update";
-        return axiosClient.post(url, {
-            id: data.id,
-            question: data.question,
-            labels: data.labels,
-            datas: data.datas,
-        });
-    },
-
-    async getAllSlides(data) {
-        const url = "/slide";
+    async getAllSlideHeadings(data) {
+        const url = "/slide_heading";
         return axiosClient.get(url, {
             params: {
                 presentation_id: data.presentationId
@@ -35,8 +25,8 @@ const slideApi = {
         });
     },
 
-    async getSlidesByCode(data) {
-        const url = "/slide/get_slide_by_code";
+    async getSlideHeadingByCode(data) {
+        const url = "/slide_heading/get_slide_by_code";
         return axiosClient.get(url, {
             params: {
                 code: data.code
@@ -44,8 +34,8 @@ const slideApi = {
         });
     },
 
-    async getSlideDetail(id) {
-        const url = "/slide/getone";
+    async getSlideHeadingDetail(id) {
+        const url = "/slide_heading/getone";
         return axiosClient.get(url, {
             params: {
                 _id: id
@@ -54,7 +44,7 @@ const slideApi = {
     },
 
     async delete(data) {
-        const url = "/slide/delete";
+        const url = "/slide_heading/delete";
         return axiosClient.post(url, {
             _id: data.id,
         });
@@ -63,4 +53,4 @@ const slideApi = {
 };
 
 
-export default slideApi;
+export default slideHeadingApi;

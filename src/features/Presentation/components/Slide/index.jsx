@@ -17,9 +17,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-function Slide({ variant, marginTop, labels, datas, question, code }) {
+function Slide({ heightBox, variant, marginTop, labels, datas, question, code }) {
     return (
-        <Box>
+        <Box style={{height:heightBox}}>
             <Box marginTop={marginTop}>
                 <Typography align="center" variant={variant}>
                     {code}
@@ -40,6 +40,7 @@ function Slide({ variant, marginTop, labels, datas, question, code }) {
 Slide.propTypes = {
     variant: PropTypes.string.isRequired,
     marginTop: PropTypes.number.isRequired,
+    heightBox: PropTypes.number.isRequired,
     labels: PropTypes.array,
     datas: PropTypes.array,
     question: PropTypes.string,
@@ -47,9 +48,9 @@ Slide.propTypes = {
 };
 
 Slide.defaultProps = {
-    labels: ["Option 1", "Option 2", "Option 3", "Option 4"],
-    datas: [0, 0, 0, 0],
-    question: "Any question",
+    labels: [],
+    datas: [],
+    question: "",
     code: 0
 }
 

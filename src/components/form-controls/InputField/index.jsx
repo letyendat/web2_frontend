@@ -48,6 +48,7 @@ function InputField(props) {
           label={label}
           disabled={disabled}
           id={name}
+          size="small"
         />
       )}
     />

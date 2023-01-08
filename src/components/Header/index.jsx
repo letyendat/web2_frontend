@@ -21,6 +21,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { teal } from '@mui/material/colors';
 import { logout } from '../../features/Auth/userSlice';
 import { setMode } from './headerSlice';
 import CreateGroup from '../../features/Group/components/CreateGroup';
@@ -94,7 +95,7 @@ export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar sx={{ backgroundColor: '#afa98e' }}>
+        <Toolbar sx={{ backgroundColor: teal[400] }}>
           <IconButton
             size="large"
             edge="start"

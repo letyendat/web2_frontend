@@ -3,7 +3,9 @@
 import { Box, Button, CircularProgress, Container, Dialog, DialogActions, DialogContent, Grid, IconButton, Paper, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
+import { teal, red } from '@mui/material/colors';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
+import SlideshowIcon from '@mui/icons-material/Slideshow';
 import SendIcon from '@mui/icons-material/Send';
 import * as yup from 'yup';
 import { useSelector } from 'react-redux';
@@ -19,7 +21,7 @@ const useStyles = makeStyles(() => ({
     root: {},
 
     left: {
-        width: '300px',
+        width: '250px',
     },
 
     right: {
@@ -135,18 +137,69 @@ function DetailPage(props) {
             <Container>
                 <Grid container spacing={4}>
                     <Grid item className={classes.left}>
-                        <Box sx={{ border: 1, borderRadius: 2, backgroundColor: '#afa98e' }}>
-                            <IconButton disabled={!isOwnerGroup} color="inherit" onClick={handleCreateInviteClick}>
-                                <LibraryAddIcon fontSize='large' />
-                                <Typography sx={{ color: 'black', fontFamily: 'Monospace' }} variant="subtitle1"> : Create link invite</Typography>
-                            </IconButton>
-                        </Box>
+                        <Box style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                            <Button
+                                onClick={handleCreateInviteClick}
+                                sx={{
+                                    backgroundColor: teal[400],
+                                    marginBottom: '20px',
+                                    color: 'white',
+                                    padding: `8px 16px`,
+                                    marginRight: 2,
+                                    textTransform: 'none',
+                                }}
+                                startIcon={<LibraryAddIcon />}
+                            >
+                                <Typography
+                                    sx={{
+                                        fontSize: 14,
+                                    }}
+                                >
+                                    Create link invite
+                                </Typography>
+                            </Button>
 
-                        <Box marginTop={2} sx={{ border: 1, borderRadius: 2, backgroundColor: '#afa98e' }}>
-                            <IconButton disabled={!isOwnerGroup} color="inherit" onClick={handleSendInviteClick}>
-                                <SendIcon fontSize='large' />
-                                <Typography sx={{ color: 'black', fontFamily: 'Monospace' }} variant="subtitle1"> : Send link invite</Typography>
-                            </IconButton>
+                            <Button
+                                onClick={handleSendInviteClick}
+                                sx={{
+                                    backgroundColor: teal[400],
+                                    marginBottom: '20px',
+                                    color: 'white',
+                                    padding: `8px 16px`,
+                                    marginRight: 2,
+                                    textTransform: 'none',
+                                }}
+                                startIcon={<SendIcon />}
+                            >
+                                <Typography
+                                    sx={{
+                                        fontSize: 14,
+                                    }}
+                                >
+                                    Send link invite
+                                </Typography>
+                            </Button>
+
+                            <Button
+                                onClick={handleSendInviteClick}
+                                sx={{
+                                    backgroundColor: teal[400],
+                                    marginBottom: '20px',
+                                    color: 'white',
+                                    padding: `8px 16px`,
+                                    marginRight: 2,
+                                    textTransform: 'none',
+                                }}
+                                startIcon={<SlideshowIcon />}
+                            >
+                                <Typography
+                                    sx={{
+                                        fontSize: 14,
+                                    }}
+                                >
+                                    Presentation Group
+                                </Typography>
+                            </Button>
                         </Box>
                     </Grid>
                     <Grid item className={classes.right}>

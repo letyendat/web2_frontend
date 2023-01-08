@@ -17,7 +17,7 @@ function PresentationFeature({socket}) {
         <div>
             <Routes>
                 <Route path="" exact element={<ListPresentationPage/>}/>
-                <Route path="/:presentationId/slide" exact element={<SlideList/>}/>
+                <Route path="/:presentationId/slide" exact element={<SlideList socket={socket}/>}/>
 
                 <Route path="/:presentationId" exact element={<DetailPresentationPage socket={socket}/>}/>
             </Routes>
