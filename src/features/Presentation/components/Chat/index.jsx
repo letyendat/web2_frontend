@@ -299,7 +299,7 @@ function Chat({ handleClose, socket, presentationId }) {
 													marginBottom: 3,
 												}}
 											>
-												{loggedInUser.name}
+												{message.owner_id.name}
 											</p>
 											<li className="message left">
 												<p>{message.message}</p>
