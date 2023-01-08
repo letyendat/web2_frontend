@@ -15,6 +15,8 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import TextField from '@mui/material/TextField';
+
 import { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { FormHelperText } from '@mui/material';
@@ -51,6 +53,7 @@ function PasswordField(props) {
           formState,
         }) => (
           <OutlinedInput
+            // style={{height:"40px"}}
             error={!!hasError}
             id={name}
             type={showPassword ? 'text' : 'password'}
@@ -62,7 +65,6 @@ function PasswordField(props) {
                 <IconButton
                   aria-label="toggle password visibility"
                   onClick={toggleShowPassword}
-                // onMouseDown={handleMouseDownPassword}
                 >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>

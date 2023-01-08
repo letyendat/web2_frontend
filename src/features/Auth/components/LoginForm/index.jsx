@@ -101,7 +101,7 @@ function LoginForm(props) {
 
             <Button sx={{
               marginTop: 2,
-              backgroundColor: '#afa98e'
+              backgroundColor: '#26a69a'
             }}
               disabled={isSubmitting} type="submit" variant="contained" color="primary" fullWidth>
               Sign In
@@ -109,7 +109,7 @@ function LoginForm(props) {
           </form>
 
           <NavLink className={classes.link} to="/register">
-            <Button sx={{color: '#afa98e'}} onClick={handleRegisterClick}>Register a account</Button>
+            <Button sx={{color: '#26a69a'}} onClick={handleRegisterClick}>Register a account</Button>
           </NavLink>
         </Box>
       </Container>
