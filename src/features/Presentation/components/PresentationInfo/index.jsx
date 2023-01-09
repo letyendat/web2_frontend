@@ -175,6 +175,10 @@ function PresentationInfo({ socket }) {
 				const timestamp1 = date.getTime();
 				const timestamp2 = today.getTime();
 
+				console.log(timestamp2)
+				console.log(timestamp1)
+				console.log(timestamp2 - timestamp1)
+
 				if ((timestamp2 - timestamp1) < 130) {
 					setCountMessage((count) => {
 						const newCount = count + 1;
