@@ -165,7 +165,6 @@ function Chat({ handleClose, socket, presentationId }) {
 
 	useEffect(() => {
 		const messageListener = (message) => {
-			console.log(message);
 			setMessages((prevMessages) => {
 				const newMessages = { ...prevMessages };
 				newMessages[message._id] = message;

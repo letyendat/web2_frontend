@@ -13,6 +13,7 @@ import { useSnackbar } from 'notistack';
 import { Grid, Box, Paper, Button, Typography } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
+import Badge from '@mui/material/Badge';
 import socketIOClient from 'socket.io-client';
 import { useSelector } from 'react-redux';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -169,10 +170,17 @@ function PresentationInfo({ socket }) {
 
 		const messageListener = (message) => {
 			if (message.owner_id?._id !== idloggedUser) {
-				setCountMessage((count) => {
-					const newCount = count + 1;
-					return newCount;
-				});
+				const today = new Date();
+				const date = new Date(message.createdAt);
+				const timestamp1 = date.getTime();
+				const timestamp2 = today.getTime();
+
+				if ((timestamp2 - timestamp1) < 130) {
+					setCountMessage((count) => {
+						const newCount = count + 1;
+						return newCount;
+					});
+				}
 			}
 		};
 		socket?.on('message', messageListener);
@@ -233,7 +241,7 @@ function PresentationInfo({ socket }) {
 			if (response.status === true) {
 				setSlideList(response.data.data);
 			}
-			
+
 			if (idType === 1) {
 				const responsex = await slideApi.getSlideDetail(slideId);
 				if (responsex.status === true) {
@@ -250,7 +258,7 @@ function PresentationInfo({ socket }) {
 					setSlideChoice(responsex.data.data)
 				}
 			}
-			
+
 		} catch (error) {
 			console.log('failed');
 		}
@@ -493,13 +501,13 @@ function PresentationInfo({ socket }) {
 				>
 					{slideChoice ? (
 						slideChoice.slide_type === 1 ? (
-							< UpdateSlide submitUpdate={submitUpdateSlide} slideId={slideChoice._id} idType={slideChoice.slide_type} question={slideChoice.question} labels={slideChoice.labels} datas={slideChoice.datas}/>
+							< UpdateSlide submitUpdate={submitUpdateSlide} slideId={slideChoice._id} idType={slideChoice.slide_type} question={slideChoice.question} labels={slideChoice.labels} datas={slideChoice.datas} />
 						) : (
 							slideChoice.slide_type === 2 ? (
 								< UpdateSlideHeading submitUpdate={submitUpdateSlide} slideId={slideChoice._id} idType={slideChoice.slide_type} heading={slideChoice.heading} />
 							) : (
 								slideChoice.slide_type === 3 ? (
-									< UpdateSlideParagraph submitUpdate={submitUpdateSlide} slideId={slideChoice._id} idType={slideChoice.slide_type} heading={slideChoice.heading} paragraph={slideChoice.paragraph}/>
+									< UpdateSlideParagraph submitUpdate={submitUpdateSlide} slideId={slideChoice._id} idType={slideChoice.slide_type} heading={slideChoice.heading} paragraph={slideChoice.paragraph} />
 								) : (
 									<div />
 								)
@@ -527,12 +535,15 @@ function PresentationInfo({ socket }) {
 				}}
 				onClick={handleOnClickOpenDialogChat}
 			>
-				<ChatIcon
-					style={{
-						color: 'white',
-						fontSize: 24,
-					}}
-				/>
+				<Badge color="secondary" badgeContent={countMessage}>
+					<ChatIcon
+						style={{
+							color: 'white',
+							fontSize: 24,
+						}}
+					/>
+				</Badge>
+
 			</Box>
 			{openDialogChat && (
 				<Chat
