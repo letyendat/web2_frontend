@@ -179,7 +179,7 @@ function PresentationInfo({ socket }) {
 				console.log(timestamp1)
 				console.log(timestamp2 - timestamp1)
 
-				if ((timestamp2 - timestamp1) < 130) {
+				if ((timestamp2 - timestamp1) < 600) {
 					setCountMessage((count) => {
 						const newCount = count + 1;
 						return newCount;
