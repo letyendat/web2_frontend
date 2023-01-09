@@ -30,7 +30,7 @@ function App() {
 
   const [socket, setSocket] = useState(null);
   useEffect(() => {
-      const newSocket = io(a);
+      const newSocket = io(b);
       setSocket(newSocket);
       return () => newSocket.close();
   }, [setSocket]);

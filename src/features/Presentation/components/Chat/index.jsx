@@ -283,9 +283,22 @@ function Chat({ handleClose, socket, presentationId }) {
 											>
 												{loggedInUser.name}
 											</p>
+											<p
+												style={{
+													marginLeft: 'auto',
+													fontSize: 10,
+													color: '#333',
+													fontWeight: 500,
+													marginTop: 0,
+													marginBottom: 3,
+												}}
+											>
+												{message.createdAt}
+											</p>
 											<li className="message right">
 												<p>{message.message}</p>
 											</li>
+											
 										</>
 									) : (
 										<>
@@ -300,9 +313,21 @@ function Chat({ handleClose, socket, presentationId }) {
 											>
 												{message.owner_id.name}
 											</p>
+											<p
+												style={{
+													fontSize: 10,
+													color: '#333',
+													fontWeight: 500,
+													marginTop: 0,
+													marginBottom: 3,
+												}}
+											>
+												{message.createdAt}
+											</p>
 											<li className="message left">
 												<p>{message.message}</p>
 											</li>
+											
 										</>
 									)
 								)}
