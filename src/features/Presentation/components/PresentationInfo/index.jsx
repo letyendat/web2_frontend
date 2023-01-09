@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable prefer-template */
@@ -180,7 +181,7 @@ function PresentationInfo({ socket }) {
 				console.log(timestamp1)
 				console.log(timestamp2 - timestamp1)
 
-				if (((timestamp2 - timestamp1) < 600) && (openDialogChat===false)){
+				if (((timestamp2 - timestamp1) < 600)){
 					setCountMessage((count) => {
 						const newCount = count + 1;
 						return newCount;
@@ -539,7 +540,7 @@ function PresentationInfo({ socket }) {
 				}}
 				onClick={handleOnClickOpenDialogChat}
 			>
-				<Badge color="secondary" badgeContent={countMessage}>
+				<Badge color="secondary" badgeContent={(!openDialogChat) ? (countMessage):('')}>
 					<ChatIcon
 						style={{
 							color: 'white',
