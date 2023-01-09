@@ -153,6 +153,7 @@ function PresentationInfo({ socket }) {
 
 
 	const [countMessage, setCountMessage] = useState(0);
+	const [openDialogChat, setOpenDialogChat] = useState(false);
 
 	useEffect(() => {
 		const multiChoiceListener = async (value) => {
@@ -167,7 +168,6 @@ function PresentationInfo({ socket }) {
 		};
 
 		socket?.on('multiChoice', multiChoiceListener);
-		const [openDialogChat, setOpenDialogChat] = useState(false);
 
 		const messageListener = (message) => {
 			if (message.owner_id?._id !== idloggedUser) {
