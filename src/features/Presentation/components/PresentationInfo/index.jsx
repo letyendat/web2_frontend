@@ -167,6 +167,7 @@ function PresentationInfo({ socket }) {
 		};
 
 		socket?.on('multiChoice', multiChoiceListener);
+		const [openDialogChat, setOpenDialogChat] = useState(false);
 
 		const messageListener = (message) => {
 			if (message.owner_id?._id !== idloggedUser) {
@@ -179,7 +180,7 @@ function PresentationInfo({ socket }) {
 				console.log(timestamp1)
 				console.log(timestamp2 - timestamp1)
 
-				if ((timestamp2 - timestamp1) < 600) {
+				if (((timestamp2 - timestamp1) < 600) && (openDialogChat===false)){
 					setCountMessage((count) => {
 						const newCount = count + 1;
 						return newCount;
@@ -227,7 +228,6 @@ function PresentationInfo({ socket }) {
 		}
 	};
 
-	const [openDialogChat, setOpenDialogChat] = useState(false);
 	const handleOnClickOpenDialogChat = () => {
 		setCountMessage(0);
 		setOpenDialogChat(!openDialogChat);
